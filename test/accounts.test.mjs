@@ -43,7 +43,12 @@ test("autenticação, Argon2d, isolamento, centavos e CRUD completo", async () =
     ids.push(register.body.id);
     assert.ok(!("passwordHash" in register.body));
     assert.match(register.cookie, /HttpOnly/i);
-    assert.match(register.cookie, /SameSite=Lax/i);
+    assert.match(
+      register.cookie,
+      process.env.NODE_ENV === "production"
+        ? /SameSite=None/i
+        : /SameSite=Lax/i,
+    );
     const stored = await db.orm.public.User.where({ email }).first();
     assert.match(stored.passwordHash, /^\$argon2d\$/);
     assert.equal(

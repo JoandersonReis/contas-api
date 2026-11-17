@@ -46,7 +46,7 @@ O Prisma está fixado em `8.0.0-rc.33` (CLI) e `8.0.0-rc.23` (`@prisma/orm-postg
 ## Autenticação e dados
 
 - Hash Argon2d, com salt aleatório da biblioteca, memória de 64 MiB, 3 iterações e paralelismo 1.
-- Sessão opaca de 7 dias em cookie HttpOnly, SameSite=Lax; somente o SHA-256 do token é persistido. Logout revoga a sessão. Em produção o cookie é Secure e exige HTTPS.
+- Sessão opaca de 7 dias em cookie HttpOnly, SameSite=Lax em desenvolvimento e SameSite=None em produção (frontend e API em sites distintos); somente o SHA-256 do token é persistido. Logout revoga a sessão. Em produção o cookie é Secure e exige HTTPS.
 - Verificação de Origin nas escritas, CORS restrito ao `WEB_ORIGIN`, limite de requisições e validação de DTOs.
 - Todas as operações verificam o usuário proprietário. Excluir uma pasta remove seus lançamentos via chave estrangeira com cascade.
 - Dinheiro em centavos inteiros; cada valor deve estar entre 1 e 1.000.000.000 centavos. Datas de gastos são datas civis, sem conversão de fuso horário.
@@ -95,7 +95,7 @@ O guard de autenticação delega a validação da sessão ao service. Cookies pe
 
 Esta pasta é a raiz do projeto backend. Execute `npm ci`, `npm run build` e `npm start`. Configure `DATABASE_URL`, `WEB_ORIGIN` (origem exata do frontend), `NODE_ENV=production` e `PORT`. O servidor escuta em `0.0.0.0` por padrão, compatível com containers; `HOST` permite alterar isso. HTTPS deve ser terminado pelo proxy ou plataforma de hospedagem.
 
-No Neon, configure `DATABASE_URL` com a conexão pooled (host com `-pooler`) para a API e `DATABASE_URL_UNPOOLED` com a conexão direta para os comandos do Prisma, incluindo inicialização e migrations. Mantenha os parâmetros TLS fornecidos pelo Neon. Se `DATABASE_URL_UNPOOLED` não estiver definida, o CLI usa `DATABASE_URL`, como no PostgreSQL local.
+No Neon, configure `DATABASE_URL` com a conexão pooled (host com `-pooler`) e `DATABASE_URL_UNPOOLED` com a conexão direta. Nesta versão RC do Prisma, tanto a API quanto os comandos de banco preferem a conexão direta: o runtime envia `lc_monetary`, rejeitado pelo pooler do Neon. Configure `DATABASE_URL_UNPOOLED` também no ambiente de deploy. Mantenha os parâmetros TLS fornecidos pelo Neon. Se `DATABASE_URL_UNPOOLED` não estiver definida, o CLI usa `DATABASE_URL`, como no PostgreSQL local.
 
 Inicialize um banco novo com `npm run db:init` antes de iniciar a aplicação. Para bancos existentes, aplique migrations Prisma 8 conforme as mudanças de contrato. O CLI Prisma está nas devDependencies, portanto a etapa de build/migrations deve instalar também as dependências de desenvolvimento. O runtime utiliza `dist`, incluindo o contrato JSON copiado pelo TypeScript.
 
