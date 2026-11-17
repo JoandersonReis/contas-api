@@ -9,14 +9,13 @@ import {
 import { APP_GUARD, NestFactory } from "@nestjs/core";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import cookieParser from "cookie-parser";
-import { createRequire } from "node:module";
+import helmetModule from "helmet";
 import { AuthModule } from "./auth/auth.module.js";
 import { FoldersModule } from "./folders/folders.module.js";
 import { db } from "./prisma/db.js";
 import { allowedWebOrigins } from "./origins.js";
-const helmet = createRequire(import.meta.url)(
-  "helmet",
-) as () => import("express").RequestHandler;
+const helmet =
+  helmetModule as unknown as () => import("express").RequestHandler;
 @Injectable()
 class DatabaseLifecycle implements OnApplicationShutdown {
   async onApplicationShutdown() {
