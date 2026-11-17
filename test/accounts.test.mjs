@@ -1,9 +1,7 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
-import { createRequire } from "node:module";
-const require = createRequire(import.meta.url);
-const { db } = require("../dist/prisma/db.js");
+import { db } from "../dist/prisma/db.js";
 const base = process.env.TEST_API_URL || "http://127.0.0.1:3000/api";
 const origin = process.env.WEB_ORIGIN || "http://localhost:5173";
 function client() {

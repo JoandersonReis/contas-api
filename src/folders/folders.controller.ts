@@ -11,9 +11,9 @@ import {
   UseGuards,
 } from "@nestjs/common";
 
-import { AuthGuard, type AuthRequest } from "../auth/auth.guard";
-import { FolderDto, EntryDto } from "../dto";
-import { FoldersService } from "./folders.service";
+import { AuthGuard, type AuthRequest } from "../auth/auth.guard.js";
+import { FolderDto, EntryDto } from "../dto.js";
+import { FoldersService } from "./folders.service.js";
 @Controller("folders")
 @UseGuards(AuthGuard)
 export class FoldersController {

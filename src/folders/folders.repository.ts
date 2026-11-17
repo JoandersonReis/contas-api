@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common";
-import { db } from "../prisma/db";
-import { FolderDto, EntryDto } from "../dto";
+import { db } from "../prisma/db.js";
+import { FolderDto, EntryDto } from "../dto.js";
 @Injectable()
 export class FoldersRepository {
   findOwned(userId: string, id: string) {

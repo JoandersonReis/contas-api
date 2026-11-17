@@ -10,10 +10,10 @@ import { APP_GUARD, NestFactory } from "@nestjs/core";
 import { ThrottlerGuard, ThrottlerModule } from "@nestjs/throttler";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
-import { AuthModule } from "./auth/auth.module";
-import { FoldersModule } from "./folders/folders.module";
-import { db } from "./prisma/db";
-import { allowedWebOrigins } from "./origins";
+import { AuthModule } from "./auth/auth.module.js";
+import { FoldersModule } from "./folders/folders.module.js";
+import { db } from "./prisma/db.js";
+import { allowedWebOrigins } from "./origins.js";
 @Injectable()
 class DatabaseLifecycle implements OnApplicationShutdown {
   async onApplicationShutdown() {

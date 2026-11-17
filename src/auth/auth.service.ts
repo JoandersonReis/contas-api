@@ -5,8 +5,8 @@ import {
 } from "@nestjs/common";
 import { createHash, randomBytes, randomUUID } from "node:crypto";
 import * as argon2 from "argon2";
-import { LoginDto, RegisterDto } from "../dto";
-import { AuthRepository } from "./auth.repository";
+import { LoginDto, RegisterDto } from "../dto.js";
+import { AuthRepository } from "./auth.repository.js";
 const digest = (token: string) =>
   createHash("sha256").update(token).digest("hex");
 @Injectable()

@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from "@nestjs/common";
 import { randomUUID } from "node:crypto";
-import { FolderDto, EntryDto } from "../dto";
-import { FoldersRepository } from "./folders.repository";
+import { FolderDto, EntryDto } from "../dto.js";
+import { FoldersRepository } from "./folders.repository.js";
 @Injectable()
 export class FoldersService {
   constructor(private readonly repository: FoldersRepository) {}

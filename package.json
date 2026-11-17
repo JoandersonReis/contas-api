@@ -1,5 +1,6 @@
 {
   "name": "contas-api",
+  "type": "module",
   "private": true,
   "scripts": {
     "dev": "tsc-watch --onSuccess 'node dist/main.js'",

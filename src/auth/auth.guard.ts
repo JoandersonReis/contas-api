@@ -4,9 +4,9 @@ import {
   ExecutionContext,
   UnauthorizedException,
 } from "@nestjs/common";
-import { AuthService } from "./auth.service";
-import { cookieName, type AuthRequest } from "./auth.http";
-export type { AuthRequest } from "./auth.http";
+import { AuthService } from "./auth.service.js";
+import { cookieName, type AuthRequest } from "./auth.http.js";
+export type { AuthRequest } from "./auth.http.js";
 @Injectable()
 export class AuthGuard implements CanActivate {
   constructor(private readonly service: AuthService) {}

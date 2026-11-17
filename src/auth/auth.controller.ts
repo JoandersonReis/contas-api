@@ -9,10 +9,10 @@ import {
 } from "@nestjs/common";
 import { Throttle } from "@nestjs/throttler";
 import type { Request, Response } from "express";
-import { LoginDto, RegisterDto } from "../dto";
-import { AuthService } from "./auth.service";
-import { AuthGuard } from "./auth.guard";
-import { cookieName, cookieOptions, type AuthRequest } from "./auth.http";
+import { LoginDto, RegisterDto } from "../dto.js";
+import { AuthService } from "./auth.service.js";
+import { AuthGuard } from "./auth.guard.js";
+import { cookieName, cookieOptions, type AuthRequest } from "./auth.http.js";
 @Controller("auth")
 export class AuthController {
   constructor(private readonly service: AuthService) {}
