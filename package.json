@@ -12,6 +12,8 @@
     "format:check": "prettier --check ."
   },
   "dependencies": {
+    "@neon/config": "^1.14.1",
+    "@neon/env": "^2.1.4",
     "@nestjs/common": "^11.1.0",
     "@nestjs/core": "^11.1.0",
     "@nestjs/platform-express": "^11.1.0",
@@ -31,10 +33,10 @@
     "@types/cookie-parser": "^1.4.9",
     "@types/express": "^5.0.0",
     "@types/node": "^24.0.0",
+    "prettier": "3.10.0",
     "prisma": "8.0.0-rc.33",
     "tsc-watch": "^7.2.0",
-    "typescript": "^5.9.3",
-    "prettier": "3.10.0"
+    "typescript": "^5.9.3"
   },
   "engines": {
     "node": ">=24.11"

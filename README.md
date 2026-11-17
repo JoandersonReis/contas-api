@@ -95,6 +95,8 @@ O guard de autenticação delega a validação da sessão ao service. Cookies pe
 
 Esta pasta é a raiz do projeto backend. Execute `npm ci`, `npm run build` e `npm start`. Configure `DATABASE_URL`, `WEB_ORIGIN` (origem exata do frontend), `NODE_ENV=production` e `PORT`. O servidor escuta em `0.0.0.0` por padrão, compatível com containers; `HOST` permite alterar isso. HTTPS deve ser terminado pelo proxy ou plataforma de hospedagem.
 
+No Neon, configure `DATABASE_URL` com a conexão pooled (host com `-pooler`) para a API e `DATABASE_URL_UNPOOLED` com a conexão direta para os comandos do Prisma, incluindo inicialização e migrations. Mantenha os parâmetros TLS fornecidos pelo Neon. Se `DATABASE_URL_UNPOOLED` não estiver definida, o CLI usa `DATABASE_URL`, como no PostgreSQL local.
+
 Inicialize um banco novo com `npm run db:init` antes de iniciar a aplicação. Para bancos existentes, aplique migrations Prisma 8 conforme as mudanças de contrato. O CLI Prisma está nas devDependencies, portanto a etapa de build/migrations deve instalar também as dependências de desenvolvimento. O runtime utiliza `dist`, incluindo o contrato JSON copiado pelo TypeScript.
 
 O Docker Compose incluído sobe somente PostgreSQL para desenvolvimento. O frontend tem build e deploy próprios e não é necessário para compilar esta API.

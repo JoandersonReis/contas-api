@@ -7,3 +7,4 @@ dist/
 coverage/
 migrations/**/refs/db.json
 .vscode/
+.neon

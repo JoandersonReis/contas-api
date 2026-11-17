@@ -1,12 +1,13 @@
 // Optional UI smoke check using an existing Chromium with --remote-debugging-port=9222.
-import { writeFile } from "node:fs/promises";
 import assert from "node:assert/strict";
+import { writeFile } from "node:fs/promises";
 import { createRequire } from "node:module";
 const require = createRequire(new URL("../package.json", import.meta.url));
 require("dotenv").config({
   path: new URL("../.env", import.meta.url).pathname,
   quiet: true,
 });
+
 const { db } = require("./dist/prisma/db.js");
 let testEmail;
 const pages = await (await fetch("http://127.0.0.1:9222/json")).json();
@@ -15,6 +16,7 @@ const ws = new WebSocket(page.webSocketDebuggerUrl);
 await new Promise((r) => ws.addEventListener("open", r, { once: true }));
 let seq = 0;
 const pending = new Map();
+
 ws.addEventListener("message", (event) => {
   const m = JSON.parse(event.data);
   if (m.id) {
@@ -121,6 +123,7 @@ try {
   await click("Salvar");
   await until(`!!document.querySelector('.folder-card')`);
   await evaluate(`document.querySelector('.folder-card').click()`);
+  await until(`document.body.innerText.includes("Novo lançamento")`);
   for (const amount of ["100", "200", "300"]) {
     await click("Novo lançamento");
     await until(`!!document.querySelector('dialog[open]')`);
@@ -135,7 +138,11 @@ try {
   );
   await send("Page.reload");
   await until(`document.body.innerText.includes('Mercado')`);
-  await evaluate(`document.querySelector('.folder-card').click()`);
+  await until(`document.querySelectorAll("tbody tr").length === 3`);
+  assert.ok(
+    await evaluate(`location.pathname.startsWith("/contas/")`),
+    "Detail route survives reload",
+  );
   await checkThemes("entries-desktop");
   const screenshot = await send("Page.captureScreenshot", { format: "png" });
   await writeFile(

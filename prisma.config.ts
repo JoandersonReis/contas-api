@@ -5,7 +5,10 @@ export default definePrismaConfig({
   parent: false,
   orm: defineConfig({
     contract: "./src/prisma/contract.prisma",
-    db: { connection: process.env.DATABASE_URL! },
+    db: {
+      connection: (process.env.DATABASE_URL_UNPOOLED ||
+        process.env.DATABASE_URL)!,
+    },
     migrations: { dir: "./migrations" },
   }),
 });
